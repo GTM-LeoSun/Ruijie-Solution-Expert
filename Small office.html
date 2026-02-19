@@ -14,6 +14,18 @@
             background-color: #f8fafc;
         }
 
+        /* 隐藏 Chrome, Safari, Edge, Opera 的上下箭头 */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* 隐藏 Firefox 的上下箭头 */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
         .animate-fade-in {
             animation: fadeIn 0.4s ease-out forwards;
         }
@@ -49,7 +61,7 @@
                     <span class="font-bold text-xl tracking-tight">Ruijie Solution Expert</span>
                 </div>
                 <button onclick="resetApp()" class="text-sm text-slate-500 hover:text-blue-600 transition-colors">
-                    <i class="fas fa-redo-alt mr-1"></i> Reset & Return
+                    <i class="fas fa-redo-alt mr-1"></i> Reset
                 </button>
             </div>
         </nav>
@@ -59,79 +71,58 @@
             <div id="progress-container" class="mb-10 transition-opacity duration-300 no-print">
                 <div class="flex justify-between mb-2">
                     <span id="step-label" class="text-xs font-bold uppercase tracking-wider text-slate-400">Configuration Progress</span>
-                    <span id="step-percentage" class="text-xs font-bold text-blue-600">20%</span>
+                    <span id="step-percentage" class="text-xs font-bold text-blue-600">45%</span>
                 </div>
                 <div class="w-full bg-slate-200 h-1.5 rounded-full">
-                    <div id="progress-bar" class="bg-blue-600 h-full rounded-full transition-all duration-500" style="width: 20%"></div>
+                    <div id="progress-bar" class="bg-blue-600 h-full rounded-full transition-all duration-500" style="width: 45%"></div>
                 </div>
             </div>
 
             <div id="wizard-container">
                 
-                <!-- Step 1: Scenario Selection -->
-                <div id="step-1" class="step-content animate-fade-in no-print">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-2">Select Application Scenario</h2>
-                    <p class="text-slate-500 mb-8">Ruijie provides targeted network solutions for different environments.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div onclick="goToOfficeSub()" class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-blue-200 transition-all group">
-                            <i class="fas fa-building text-3xl text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h3 class="text-lg font-bold mb-1">Small/Medium Office</h3>
-                            <p class="text-sm text-slate-500">Stable connectivity, multi-device support, and high-speed collaboration.</p>
-                        </div>
-                        <div class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-not-allowed opacity-50 grayscale">
-                            <i class="fas fa-hotel text-3xl text-slate-400 mb-4"></i>
-                            <h3 class="text-lg font-bold mb-1 text-slate-400">Budget Hotel</h3>
-                            <p class="text-sm text-slate-400">Coming soon...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: Office Type -->
-                <div id="step-office-sub" class="step-content hidden animate-fade-in no-print">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-2">Refine Office Layout</h2>
-                    <p class="text-slate-500 mb-8">Spatial layout determines AP selection and coverage methods.</p>
+                <!-- Step 1: Office Type Selection -->
+                <div id="step-office-sub" class="step-content animate-fade-in no-print">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2">Select Office Layout</h2>
+                    <p class="text-slate-500 mb-8">Layout determines AP selection and coverage strategy.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div onclick="goToParams('office_open')" class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-blue-200 transition-all group">
                             <i class="fas fa-border-none text-3xl text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
                             <h3 class="text-lg font-bold mb-1">Open Plan Office</h3>
-                            <p class="text-sm text-slate-500">Large open space, fewer partitions. Focus on high concurrency.</p>
+                            <p class="text-sm text-slate-500">Large open space with few partitions. Focuses on high-density access.</p>
                         </div>
                         <div onclick="goToParams('office_rooms')" class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-blue-200 transition-all group">
                             <i class="fas fa-door-closed text-3xl text-indigo-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h3 class="text-lg font-bold mb-1">Multi-Room Office</h3>
-                            <p class="text-sm text-slate-500">Multiple independent rooms. Focus on wall penetration.</p>
+                            <h3 class="text-lg font-bold mb-1">Partitioned Rooms</h3>
+                            <p class="text-sm text-slate-500">Multiple independent rooms. Focuses on wall-penetration capability.</p>
                         </div>
                     </div>
-                    <button onclick="goBackToStep('step-1', 20)" class="mt-8 text-slate-500 hover:text-blue-600 font-medium transition-colors">
-                        <i class="fas fa-arrow-left mr-2"></i>Back to Previous
-                    </button>
                 </div>
 
-                <!-- Step 3: Parameters -->
+                <!-- Step 2: Parameters -->
                 <div id="step-params" class="step-content hidden animate-fade-in no-print">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Enter Environment Scale</h2>
-                    <p class="text-center text-slate-400 mb-6 tracking-wide">Selected: <span id="type-info-badge" class="font-bold text-blue-600"></span></p>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Environment Scale</h2>
+                    <p class="text-center text-slate-400 mb-6 tracking-wide">Selected Type: <span id="type-info-badge" class="font-bold text-blue-600"></span></p>
                     <div class="bg-white p-8 rounded-3xl border border-slate-100 custom-shadow space-y-6 max-w-xl mx-auto">
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">1. Total Office Area (1-800 ㎡)</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">1. Total Area (1-800 ㎡)</label>
                             <div class="relative">
-                                <input type="number" id="input-area" min="1" placeholder="Enter value between 1-800" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
+                                <input type="number" id="input-area" min="1" placeholder="Enter value 1-800" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">㎡</span>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">2. Number of Staff (1-100 People)</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">2. Staff Count (1-100 persons)</label>
                             <div class="relative">
-                                <input type="number" id="input-staff" min="1" placeholder="Enter value between 1-100" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
+                                <input type="number" id="input-staff" min="1" placeholder="Enter value 1-100" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">People</span>
                             </div>
                         </div>
                         <div class="flex flex-col gap-3">
                             <button onclick="validateAndCalculate()" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-[0.98]">
-                                View Recommended Solutions
+                                Generate Recommendation
                             </button>
                             <button onclick="goBackToStep('step-office-sub', 45)" class="w-full py-3 bg-white border border-slate-200 text-slate-500 rounded-xl font-medium hover:bg-slate-50 transition-all">
-                                Back to Change Type
+                                Back to Types
                             </button>
                         </div>
                     </div>
@@ -143,7 +134,7 @@
                         <div class="text-left">
                             <h2 class="text-xl font-bold text-slate-800">Solution Details</h2>
                             <p class="text-slate-500 text-sm mt-1">
-                                Customized recommendations based on <span id="summary-text" class="font-bold text-blue-600"></span>
+                                Customized recommendation based on <span id="summary-text" class="font-bold text-blue-600"></span>
                             </p>
                         </div>
                         <div class="flex items-center gap-3 no-print">
@@ -160,28 +151,28 @@
                         <!-- Budget Plan -->
                         <div class="flex flex-col">
                             <div class="bg-blue-600 text-white p-4 rounded-t-3xl font-bold flex items-center justify-between">
-                                <span class="flex items-center"><i class="fas fa-wallet mr-2"></i> Budget Friendly</span>
-                                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full border border-white/30 backdrop-blur-sm">Cost Effective</span>
+                                <span class="flex items-center"><i class="fas fa-wallet mr-2"></i> Budget Plan</span>
+                                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full border border-white/30 backdrop-blur-sm">Cost-effective</span>
                             </div>
                             <div class="bg-white border-x border-b border-slate-100 p-6 rounded-b-3xl custom-shadow flex-grow flex flex-col">
                                 <div id="plan-entry-items" class="space-y-3 flex-grow"></div>
                                 <div class="mt-8 pt-6 border-t border-slate-100">
-                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Total Investment</div>
-                                    <div class="text-3xl font-bold text-slate-900" id="total-price-entry">$ --</div>
+                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Investment</div>
+                                    <div class="text-3xl font-bold text-slate-900" id="total-price-entry">--</div>
                                 </div>
                             </div>
                         </div>
                         <!-- High Performance Plan -->
                         <div class="flex flex-col">
                             <div class="bg-slate-900 text-white p-4 rounded-t-3xl font-bold flex items-center justify-between">
-                                <span class="flex items-center"><i class="fas fa-rocket mr-2 text-orange-400"></i> High Performance</span>
-                                <span class="text-[10px] bg-orange-500/20 px-2 py-0.5 rounded-full border border-orange-500/30 backdrop-blur-sm text-orange-200">Better Experience</span>
+                                <span class="flex items-center"><i class="fas fa-rocket mr-2 text-orange-400"></i> Performance Plan</span>
+                                <span class="text-[10px] bg-orange-500/20 px-2 py-0.5 rounded-full border border-orange-500/30 backdrop-blur-sm text-orange-200">Premium Experience</span>
                             </div>
                             <div class="bg-white border-x border-b border-slate-100 p-6 rounded-b-3xl custom-shadow flex-grow flex flex-col">
                                 <div id="plan-pro-items" class="space-y-3 flex-grow"></div>
                                 <div class="mt-8 pt-6 border-t border-slate-100">
-                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Total Investment</div>
-                                    <div class="text-3xl font-bold text-slate-900" id="total-price-pro">$ --</div>
+                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Investment</div>
+                                    <div class="text-3xl font-bold text-slate-900" id="total-price-pro">--</div>
                                 </div>
                             </div>
                         </div>
@@ -193,11 +184,11 @@
                     <div class="w-20 h-20 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Ruijie Engineer Required</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Expert Support Required</h2>
                     <p class="text-slate-500 max-w-md mx-auto mb-8">
-                        The current scale (<span id="eng-area"></span>㎡ / <span id="eng-staff"></span> staff) exceeds the rapid recommendation range and requires precise network planning.
+                        The current scale (<span id="eng-area"></span>㎡ / <span id="eng-staff"></span> people) exceeds the quick recommendation range. Professional network planning is required.
                     </p>
-                    <button onclick="goBackToStep('step-params', 75)" class="w-full max-w-xs py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition-all">Back to Edit Parameters</button>
+                    <button onclick="goBackToStep('step-params', 75)" class="w-full max-w-xs py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition-all">Back to Edit</button>
                 </div>
 
             </div>
@@ -218,37 +209,31 @@
         const catalog = {
             devices: {
                 gateway: {
-                    EG105GP: { model: "EG105G-P", price: 699, icon: "fas fa-microchip", label: "Gigabit Gateway" },
-                    EG310GH: { model: "EG310GH", price: 1199, icon: "fas fa-microchip", label: "Core Gateway" },
-                    EG310GHP: { model: "EG310GH-P-E", price: 1299, icon: "fas fa-microchip", label: "High Performance Gateway" },
-                    EG406XS: { model: "EG406XS", price: 1699, icon: "fas fa-tachometer-alt", label: "10G Core Gateway" },
-                    EG406XSP: { model: "EG406XS-P", price: 1899, icon: "fas fa-tachometer-alt", label: "10G PoE Gateway" }
+                    EG105GP: { model: "RG-EG105G-P", price: 699, icon: "fas fa-microchip", label: "Gigabit Gateway" },
+                    EG310GH: { model: "RG-EG310GH", price: 1199, icon: "fas fa-microchip", label: "Core Gateway" },
+                    EG310GHP: { model: "RG-EG310GH-P-E", price: 1299, icon: "fas fa-microchip", label: "High-Perf PoE Gateway" },
+                    EG406XS: { model: "RG-EG406XS", price: 1699, icon: "fas fa-tachometer-alt", label: "10G Core Gateway" },
+                    EG406XSP: { model: "RG-EG406XS-P", price: 1899, icon: "fas fa-tachometer-alt", label: "10G PoE Gateway" }
                 },
                 switch: {
-                    ES210GSP: { model: "ES210GS-P", price: 999, icon: "fas fa-server", label: "PoE Switch" },
-                    ES209MGP: { model: "ES209MG-P", price: 1599, icon: "fas fa-server", label: "2.5G PoE Switch" }
+                    ES210GSP: { model: "RG-ES210GS-P", price: 999, icon: "fas fa-server", label: "PoE Switch" },
+                    ES209MGP: { model: "RG-ES209MG-P", price: 1599, icon: "fas fa-server", label: "2.5G PoE Switch" }
                 },
                 ap: {
-                    RAP2260G: { model: "RAP2260(G)", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
-                    RAP2260E: { model: "RAP2260(E)", price: 1099, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
-                    RAP2260: { model: "RAP2260", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
-                    RAP72: { model: "RAP72", price: 1599, icon: "fas fa-bolt", label: "Wi-Fi 7 AP" },
-                    RAP72Pro: { model: "RAP72Pro", price: 2199, icon: "fas fa-bolt", label: "Wi-Fi 7 Pro AP" }
+                    RAP2260G: { model: "RG-RAP2260(G)", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
+                    RAP2260E: { model: "RG-RAP2260(E)", price: 1099, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
+                    RAP2260: { model: "RG-RAP2260", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
+                    RAP72: { model: "RG-RAP72", price: 1599, icon: "fas fa-bolt", label: "Wi-Fi 7 AP" },
+                    RAP72Pro: { model: "RG-RAP72Pro", price: 2199, icon: "fas fa-bolt", label: "Wi-Fi 7 Pro AP" }
                 }
             }
         };
-
-        function goToOfficeSub() {
-            hideAllSteps();
-            document.getElementById('step-office-sub').classList.remove('hidden');
-            updateProgressBar(45);
-        }
 
         function goToParams(type) {
             selections.subScenario = type;
             hideAllSteps();
             document.getElementById('step-params').classList.remove('hidden');
-            document.getElementById('type-info-badge').innerText = type === 'office_open' ? 'Open Space' : 'Multi-Room';
+            document.getElementById('type-info-badge').innerText = type === 'office_open' ? 'Open Plan' : 'Partitioned';
             updateProgressBar(75);
         }
 
@@ -259,7 +244,7 @@
             const staff = parseInt(staffInput.value) || 0;
 
             if (area < 1 || staff < 1) {
-                showToast("Please enter valid values for area and staff.");
+                showToast("Please enter valid area and staff numbers.");
                 return;
             }
 
@@ -284,7 +269,7 @@
         function renderResults() {
             let planData = { entry: { items: [] }, pro: { items: [] } };
             const { area, staff, subScenario } = selections;
-            let subLabel = subScenario === 'office_open' ? "Open Plan" : "Multi-Room";
+            let subLabel = subScenario === 'office_open' ? "Open Plan" : "Partitioned";
 
             if (subScenario === 'office_open') {
                 const n = calculateAPCount(area, 100);
@@ -333,8 +318,16 @@
             const totalEntry = data.entry.items.reduce((sum, i) => sum + (i.price * i.qty), 0);
             const totalPro = data.pro.items.reduce((sum, i) => sum + (i.price * i.qty), 0);
 
-            document.getElementById('total-price-entry').innerText = `$ ${totalEntry.toLocaleString()}`;
-            document.getElementById('total-price-pro').innerText = `$ ${totalPro.toLocaleString()}`;
+            if (totalEntry < totalPro) {
+                document.getElementById('total-price-entry').innerText = '$$';
+                document.getElementById('total-price-pro').innerText = '$$$';
+            } else if (totalEntry > totalPro) {
+                document.getElementById('total-price-entry').innerText = '$$$';
+                document.getElementById('total-price-pro').innerText = '$$';
+            } else {
+                document.getElementById('total-price-entry').innerText = '$$';
+                document.getElementById('total-price-pro').innerText = '$$';
+            }
         }
 
         function renderPlanColumn(containerId, items, color) {
@@ -351,7 +344,7 @@
                     </div>
                     <div class="text-right">
                         <div class="text-[10px] text-slate-400">Qty</div>
-                        <div class="font-bold text-blue-600">${item.qty} <span class="text-xs font-normal text-slate-400">Units</span></div>
+                        <div class="font-bold text-blue-600">${item.qty} <span class="text-xs font-normal text-slate-400">unit</span></div>
                     </div>
                 </div>
             `).join('');

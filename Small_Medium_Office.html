@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruijie Solution Configurator</title>
+    <title>Configurador de Soluciones Ruijie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -14,14 +14,14 @@
             background-color: #f8fafc;
         }
 
-        /* 隐藏 Chrome, Safari, Edge, Opera 的上下箭头 */
+        /* Ocultar flechas en Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
-        /* 隐藏 Firefox 的上下箭头 */
+        /* Ocultar flechas en Firefox */
         input[type=number] {
             -moz-appearance: textfield;
         }
@@ -51,23 +51,23 @@
 <body class="text-slate-800">
 
     <div id="app" class="min-h-screen flex flex-col">
-        <!-- Navigation Bar -->
+        <!-- Barra de Navegación -->
         <nav class="bg-white/80 backdrop-blur-md border-b sticky top-0 z-50 no-print">
             <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">
                         <i class="fas fa-cube"></i>
                     </div>
-                    <span class="font-bold text-xl tracking-tight">Ruijie Solution Expert</span>
+                    <span class="font-bold text-xl tracking-tight">Experto en Soluciones Ruijie</span>
                 </div>
             </div>
         </nav>
 
         <main class="flex-grow max-w-6xl mx-auto w-full px-6 py-8">
-            <!-- Progress Bar -->
+            <!-- Barra de Progreso -->
             <div id="progress-container" class="mb-10 transition-opacity duration-300 no-print">
                 <div class="flex justify-between mb-2">
-                    <span id="step-label" class="text-xs font-bold uppercase tracking-wider text-slate-400">Configuration Progress</span>
+                    <span id="step-label" class="text-xs font-bold uppercase tracking-wider text-slate-400">Progreso de Configuración</span>
                     <span id="step-percentage" class="text-xs font-bold text-blue-600">45%</span>
                 </div>
                 <div class="w-full bg-slate-200 h-1.5 rounded-full">
@@ -77,107 +77,106 @@
 
             <div id="wizard-container">
                 
-                <!-- Step 1: Office Type Selection -->
+                <!-- Paso 1: Selección de Tipo de Oficina -->
                 <div id="step-office-sub" class="step-content animate-fade-in no-print">
                     <div class="flex items-center justify-between mb-8">
                         <div>
-                            <h2 class="text-2xl md:text-3xl font-bold mb-2">Select Office Layout</h2>
-                            <p class="text-slate-500">Layout determines AP selection and coverage strategy.</p>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-2">Seleccionar Diseño de Oficina</h2>
+                            <p class="text-slate-500">El diseño determina la selección de AP y la estrategia de cobertura.</p>
                         </div>
-                        <!-- 返回上一步按钮，链接到 index.html -->
                         <button onclick="window.location.href='index.html'" class="px-4 py-2 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all flex items-center shadow-sm">
-                            <i class="fas fa-chevron-left mr-2"></i>Home
+                            <i class="fas fa-chevron-left mr-2"></i>Inicio
                         </button>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div onclick="goToParams('office_open')" class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-blue-200 transition-all group">
                             <i class="fas fa-border-none text-3xl text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h3 class="text-lg font-bold mb-1">Open Plan Office</h3>
-                            <p class="text-sm text-slate-500">Large open space with few partitions. Focuses on high-density access.</p>
+                            <h3 class="text-lg font-bold mb-1">Oficina de Planta Abierta</h3>
+                            <p class="text-sm text-slate-500">Espacio amplio sin muchas divisiones. Enfoque en acceso de alta densidad.</p>
                         </div>
                         <div onclick="goToParams('office_rooms')" class="p-6 bg-white border-2 border-slate-100 rounded-2xl cursor-pointer hover:border-blue-200 transition-all group">
                             <i class="fas fa-door-closed text-3xl text-indigo-500 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <h3 class="text-lg font-bold mb-1">Partitioned Rooms</h3>
-                            <p class="text-sm text-slate-500">Multiple independent rooms. Focuses on wall-penetration capability.</p>
+                            <h3 class="text-lg font-bold mb-1">Habitaciones Compartimentadas</h3>
+                            <p class="text-sm text-slate-500">Múltiples salas independientes. Enfoque en capacidad de penetración de paredes.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Step 2: Parameters -->
+                <!-- Paso 2: Parámetros -->
                 <div id="step-params" class="step-content hidden animate-fade-in no-print">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Environment Scale</h2>
-                    <p class="text-center text-slate-400 mb-6 tracking-wide">Selected Type: <span id="type-info-badge" class="font-bold text-blue-600"></span></p>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-2 text-center">Escala del Entorno</h2>
+                    <p class="text-center text-slate-400 mb-6 tracking-wide">Tipo Seleccionado: <span id="type-info-badge" class="font-bold text-blue-600"></span></p>
                     <div class="bg-white p-8 rounded-3xl border border-slate-100 custom-shadow space-y-6 max-w-xl mx-auto">
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">1. Total Area (1-800 ㎡)</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">1. Área Total (1-800 ㎡)</label>
                             <div class="relative">
-                                <input type="number" id="input-area" min="1" placeholder="Enter value 1-800" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
+                                <input type="number" id="input-area" min="1" placeholder="Ingrese valor 1-800" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">㎡</span>
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-bold text-slate-700 mb-2">2. Staff Count (1-100 persons)</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">2. Cantidad de Personal (1-100 personas)</label>
                             <div class="relative">
-                                <input type="number" id="input-staff" min="1" placeholder="Enter value 1-100" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
-                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">People</span>
+                                <input type="number" id="input-staff" min="1" placeholder="Ingrese valor 1-100" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-lg">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">Personas</span>
                             </div>
                         </div>
                         <div class="flex flex-col gap-3">
                             <button onclick="validateAndCalculate()" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 active:scale-[0.98]">
-                                Generate Recommendation
+                                Generar Recomendación
                             </button>
                             <button onclick="goBackToStep('step-office-sub', 45)" class="w-full py-3 bg-white border border-slate-200 text-slate-500 rounded-xl font-medium hover:bg-slate-50 transition-all">
-                                Back to Types
+                                Volver a Tipos
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Result Step -->
+                <!-- Paso de Resultado -->
                 <div id="step-result" class="step-content hidden animate-fade-in">
                     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 border-b border-slate-100 pb-6">
                         <div class="text-left">
-                            <h2 class="text-xl font-bold text-slate-800">Solution Details</h2>
+                            <h2 class="text-xl font-bold text-slate-800">Detalles de la Solución</h2>
                             <p class="text-slate-500 text-sm mt-1">
-                                Customized recommendation based on <span id="summary-text" class="font-bold text-blue-600"></span>
+                                Recomendación personalizada basada en <span id="summary-text" class="font-bold text-blue-600"></span>
                             </p>
                         </div>
                         <div class="flex items-center gap-3 no-print">
                             <button onclick="goBackToStep('step-params', 75)" class="px-4 py-2.5 bg-white border border-slate-200 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-50 transition-all flex items-center shadow-sm">
-                                <i class="fas fa-arrow-left mr-2"></i>Back
+                                <i class="fas fa-arrow-left mr-2"></i>Atrás
                             </button>
                             <button onclick="resetApp()" class="px-4 py-2.5 bg-slate-100 text-slate-600 rounded-xl text-sm font-bold hover:bg-slate-200 transition-all flex items-center shadow-sm">
-                                <i class="fas fa-home mr-2"></i>Home
+                                <i class="fas fa-home mr-2"></i>Inicio
                             </button>
                         </div>
                     </div>
 
                     <div id="printable-area" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        <!-- Budget Plan -->
+                        <!-- Plan Económico -->
                         <div class="flex flex-col">
                             <div class="bg-blue-600 text-white p-4 rounded-t-3xl font-bold flex items-center justify-between">
-                                <span class="flex items-center"><i class="fas fa-wallet mr-2"></i> Budget Plan</span>
-                                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full border border-white/30 backdrop-blur-sm">Cost-effective</span>
+                                <span class="flex items-center"><i class="fas fa-wallet mr-2"></i> Plan Económico</span>
+                                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full border border-white/30 backdrop-blur-sm">Costo-efectivo</span>
                             </div>
                             <div class="bg-white border-x border-b border-slate-100 p-6 rounded-b-3xl custom-shadow flex-grow flex flex-col">
                                 <div id="plan-entry-items" class="space-y-3 flex-grow"></div>
                                 <div class="mt-8 pt-6 border-t border-slate-100">
-                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Investment</div>
+                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Inversión Estimada</div>
                                     <div class="text-3xl font-bold text-slate-900" id="total-price-entry">--</div>
                                 </div>
                             </div>
                         </div>
-                        <!-- High Performance Plan -->
+                        <!-- Plan de Alto Rendimiento -->
                         <div class="flex flex-col">
                             <div class="bg-slate-900 text-white p-4 rounded-t-3xl font-bold flex items-center justify-between">
-                                <span class="flex items-center"><i class="fas fa-rocket mr-2 text-orange-400"></i> Performance Plan</span>
-                                <span class="text-[10px] bg-orange-500/20 px-2 py-0.5 rounded-full border border-orange-500/30 backdrop-blur-sm text-orange-200">Premium Experience</span>
+                                <span class="flex items-center"><i class="fas fa-rocket mr-2 text-orange-400"></i> Plan Pro</span>
+                                <span class="text-[10px] bg-orange-500/20 px-2 py-0.5 rounded-full border border-orange-500/30 backdrop-blur-sm text-orange-200">Experiencia Premium</span>
                             </div>
                             <div class="bg-white border-x border-b border-slate-100 p-6 rounded-b-3xl custom-shadow flex-grow flex flex-col">
                                 <div id="plan-pro-items" class="space-y-3 flex-grow"></div>
                                 <div class="mt-8 pt-6 border-t border-slate-100">
-                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Estimated Investment</div>
+                                    <div class="text-slate-400 text-xs mb-1 uppercase tracking-tight">Inversión Estimada</div>
                                     <div class="text-3xl font-bold text-slate-900" id="total-price-pro">--</div>
                                 </div>
                             </div>
@@ -185,16 +184,16 @@
                     </div>
                 </div>
 
-                <!-- Engineer Required -->
+                <!-- Soporte de Ingeniero -->
                 <div id="step-engineer" class="step-content hidden animate-fade-in text-center py-12 no-print">
                     <div class="w-20 h-20 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Expert Support Required</h2>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">Requiere Soporte de Experto</h2>
                     <p class="text-slate-500 max-w-md mx-auto mb-8">
-                        The current scale (<span id="eng-area"></span>㎡ / <span id="eng-staff"></span> people) exceeds the quick recommendation range. Professional network planning is required.
+                        La escala actual (<span id="eng-area"></span>㎡ / <span id="eng-staff"></span> personas) supera el rango de recomendación rápida. Se requiere una planificación de red profesional.
                     </p>
-                    <button onclick="goBackToStep('step-params', 75)" class="w-full max-w-xs py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition-all">Back to Edit</button>
+                    <button onclick="goBackToStep('step-params', 75)" class="w-full max-w-xs py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-700 transition-all">Volver a Editar</button>
                 </div>
 
             </div>
@@ -215,22 +214,22 @@
         const catalog = {
             devices: {
                 gateway: {
-                    EG105GP: { model: "RG-EG105G-P", price: 699, icon: "fas fa-microchip", label: "Gigabit Gateway" },
-                    EG310GH: { model: "RG-EG310GH-E", price: 1199, icon: "fas fa-microchip", label: "Core Gateway" },
-                    EG310GHP: { model: "RG-EG310GH-P-E", price: 1299, icon: "fas fa-microchip", label: "High-Perf PoE Gateway" },
-                    EG406XS: { model: "RG-EG406XS", price: 1699, icon: "fas fa-tachometer-alt", label: "10G Core Gateway" },
-                    EG406XSP: { model: "RG-EG406XS-P", price: 1899, icon: "fas fa-tachometer-alt", label: "10G PoE Gateway" }
+                    EG105GP: { model: "RG-EG105G-P", price: 699, icon: "fas fa-microchip", label: "Gateway Gigabit" },
+                    EG310GH: { model: "RG-EG310GH-E", price: 1199, icon: "fas fa-microchip", label: "Gateway Core" },
+                    EG310GHP: { model: "RG-EG310GH-P-E", price: 1299, icon: "fas fa-microchip", label: "Gateway PoE Alto Rend." },
+                    EG406XS: { model: "RG-EG406XS", price: 1699, icon: "fas fa-tachometer-alt", label: "Gateway Core 10G" },
+                    EG406XSP: { model: "RG-EG406XS-P", price: 1899, icon: "fas fa-tachometer-alt", label: "Gateway PoE 10G" }
                 },
                 switch: {
-                    ES210GSP: { model: "RG-ES210GS-P", price: 999, icon: "fas fa-server", label: "PoE Acess Switch" },
-                    ES209MGP: { model: "RG-ES209MG-P", price: 1599, icon: "fas fa-server", label: "2.5G PoE Access Switch" }
+                    ES210GSP: { model: "RG-ES210GS-P", price: 999, icon: "fas fa-server", label: "Switch Acceso PoE" },
+                    ES209MGP: { model: "RG-ES209MG-P", price: 1599, icon: "fas fa-server", label: "Switch Acceso PoE 2.5G" }
                 },
                 ap: {
-                    RAP2260G: { model: "RG-RAP2260(G)", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 AP" },
-                    RAP2260E: { model: "RG-RAP2260(E)", price: 1099, icon: "fas fa-wifi", label: "Wi-Fi 6 High-density AP" },
-                    RAP2260: { model: "RG-RAP2260", price: 899, icon: "fas fa-wifi", label: "Wi-Fi 6 Pro AP" },
-                    RAP72: { model: "RG-RAP72", price: 1599, icon: "fas fa-bolt", label: "Wi-Fi 7 AP" },
-                    RAP72Pro: { model: "RG-RAP72Pro", price: 2199, icon: "fas fa-bolt", label: "Wi-Fi 7 Pro AP" }
+                    RAP2260G: { model: "RG-RAP2260(G)", price: 899, icon: "fas fa-wifi", label: "AP Wi-Fi 6" },
+                    RAP2260E: { model: "RG-RAP2260(E)", price: 1099, icon: "fas fa-wifi", label: "AP Wi-Fi 6 Alta Densidad" },
+                    RAP2260: { model: "RG-RAP2260", price: 899, icon: "fas fa-wifi", label: "AP Wi-Fi 6 Pro" },
+                    RAP72: { model: "RG-RAP72", price: 1599, icon: "fas fa-bolt", label: "AP Wi-Fi 7" },
+                    RAP72Pro: { model: "RG-RAP72Pro", price: 2199, icon: "fas fa-bolt", label: "AP Wi-Fi 7 Pro" }
                 }
             }
         };
@@ -239,7 +238,7 @@
             selections.subScenario = type;
             hideAllSteps();
             document.getElementById('step-params').classList.remove('hidden');
-            document.getElementById('type-info-badge').innerText = type === 'office_open' ? 'Open Plan' : 'Partitioned';
+            document.getElementById('type-info-badge').innerText = type === 'office_open' ? 'Planta Abierta' : 'Compartimentada';
             updateProgressBar(75);
         }
 
@@ -250,7 +249,7 @@
             const staff = parseInt(staffInput.value) || 0;
 
             if (area < 1 || staff < 1) {
-                showToast("Please enter valid area and staff numbers.");
+                showToast("Por favor ingrese números válidos de área y personal.");
                 return;
             }
 
@@ -275,7 +274,7 @@
         function renderResults() {
             let planData = { entry: { items: [] }, pro: { items: [] } };
             const { area, staff, subScenario } = selections;
-            let subLabel = subScenario === 'office_open' ? "Open Plan" : "Partitioned";
+            let subLabel = subScenario === 'office_open' ? "Planta Abierta" : "Compartimentada";
 
             if (subScenario === 'office_open') {
                 const n = calculateAPCount(area, 100);
@@ -316,7 +315,7 @@
             hideAllSteps();
             document.getElementById('progress-container').classList.add('hidden');
             document.getElementById('step-result').classList.remove('hidden');
-            document.getElementById('summary-text').innerText = `${selections.area}㎡ / ${selections.staff} Staff (${subLabel})`;
+            document.getElementById('summary-text').innerText = `${selections.area}㎡ / ${selections.staff} Pers. (${subLabel})`;
 
             renderPlanColumn('plan-entry-items', data.entry.items, 'blue');
             renderPlanColumn('plan-pro-items', data.pro.items, 'slate');
@@ -349,8 +348,8 @@
                         <div class="font-bold text-sm">${item.model}</div>
                     </div>
                     <div class="text-right">
-                        <div class="text-[10px] text-slate-400">Qty</div>
-                        <div class="font-bold text-blue-600">${item.qty} <span class="text-xs font-normal text-slate-400">unit</span></div>
+                        <div class="text-[10px] text-slate-400">Cant.</div>
+                        <div class="font-bold text-blue-600">${item.qty} <span class="text-xs font-normal text-slate-400">und</span></div>
                     </div>
                 </div>
             `).join('');
